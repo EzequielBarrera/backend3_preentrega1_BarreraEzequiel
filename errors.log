@@ -1,0 +1,14 @@
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T16:57:41.215Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T16:59:01.651Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T17:10:47.733Z"}
+{"level":"error","message":"Error al generar o insertar los datosUsers validation failed: last_name: Path `last_name` is required., first_name: Path `first_name` is required.","timestamp":"2025-03-09T17:29:01.646Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T17:41:09.568Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T17:55:16.247Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T17:58:44.370Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:00:25.216Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:06:15.047Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:06:21.132Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:11:39.186Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:13:55.927Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:14:32.759Z"}
+{"level":"fatal","message":"Este es un mensaje fatal","timestamp":"2025-03-09T18:14:32.760Z"}
