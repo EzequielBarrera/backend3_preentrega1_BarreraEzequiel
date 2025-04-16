@@ -12,3 +12,10 @@
 {"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:13:55.927Z"}
 {"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-09T18:14:32.759Z"}
 {"level":"fatal","message":"Este es un mensaje fatal","timestamp":"2025-03-09T18:14:32.760Z"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-03-17T23:39:47.354Z"}
+{"level":"fatal","message":"Este es un mensaje fatal","timestamp":"2025-03-17T23:39:47.355Z"}
+{"level":"error","timestamp":"2025-04-11T21:51:47.689Z"}
+{"level":"error","timestamp":"2025-04-11T21:54:37.476Z"}
+{"level":"error","timestamp":"2025-04-11T21:54:58.898Z"}
+{"body":"{\r\n    \"firstName\":\"Ezequiel\" ,\r\n    \"email\": \"pikitiamo@holi.com\",\r\n}","expose":true,"level":"error","status":400,"statusCode":400,"timestamp":"2025-04-11T23:11:38.001Z","type":"entity.parse.failed"}
+{"body":"{\r\n    \"firstName\":\"Ezequiel\" ,\r\n    \"lastName\":\"\",\r\n    \"email\": \"pikitiamo@holi.com\",\r\n    \"password\":\r\n}","expose":true,"level":"error","status":400,"statusCode":400,"timestamp":"2025-04-11T23:33:54.897Z","type":"entity.parse.failed"}

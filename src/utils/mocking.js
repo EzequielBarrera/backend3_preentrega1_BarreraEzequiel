@@ -1,6 +1,20 @@
 import { faker } from "@faker-js/faker";
 
-const generateMockUsers = (count = 50) => {
+export const generateMockPets = (count = 100) => {
+    console.log('generando pets')
+    let actualDate = new Date()
+    let birthDate = faker.date.past({ years: 15 })
+    return Array.from({ length: count }, () => ({
+        name: faker.animal.cat(),
+        specie: faker.animal.type(),
+        birthDate: birthDate,
+        age: Math.floor((actualDate - birthDate) / (1000 * 60 * 60 * 24 * 365)),
+        owner: null,
+        adopted: false
+    }));
+};
+
+export const generateMockUsers = (count = 50) => {
     return Array.from({ length: count }, () => ({
         firstName: faker.person.firstName(),
         lastName: faker.person.lastName(),
@@ -10,5 +24,3 @@ const generateMockUsers = (count = 50) => {
         pets: []
     }))
 }
-
-export default generateMockUsers
