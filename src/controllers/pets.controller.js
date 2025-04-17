@@ -3,6 +3,8 @@ import { petsService } from "../services/index.js"
 import __dirname from "../utils/index.js";
 import CustomError from "../services/errors/customErrors.js";
 import errorDictionary from "../services/errors/errorsName.js";
+import { generateMockPets } from "../utils/mocking.js";
+import createPetErrorInfo from "../services/errors/messages/errorMessages.js";
 
 const getAllPets = async (req, res) => {
     const pets = await petsService.getAll();
@@ -11,16 +13,41 @@ const getAllPets = async (req, res) => {
 
 const createPet = async (req, res) => {
     const { name, specie, birthDate } = req.body;
-    if (!name || !specie || !birthDate) {
-        CustomError.createError({
-            name: "Pet creation error",
-            cause: createPetErrorInfo(req.body),
-            message: "Error creating Pet - TEST",
-            code: errorDictionary.MISSING_FIELDS
-        })
+    const validPets = []
+
+    console.log('req.body: ' + JSON.stringify(req.body))
+
+    if (Object.keys(req.body).length > 0) {
+        if (!name || !specie || !birthDate) {
+            CustomError.createError({
+                name: "Pet creation error",
+                cause: createPetErrorInfo(req.body),
+                message: "Error creating Pet - TEST",
+                code: errorDictionary.MISSING_FIELDS
+            })
+        }
+    } else {
+        console.log('generando epts')
+        const generatePets = generateMockPets()
+        console.log('generatedpets: ' + JSON.stringify(generatePets))
+
+        for (let pet of generatePets) {
+            if (!pet['name'] || !pet['specie'] || !pet['birthDate']) {
+                CustomError.createError({
+                    name: "Pet creation error",
+                    cause: createPetErrorInfo(pet),
+                    message: "Error creating Pet - TEST",
+                    code: errorDictionary.MISSING_FIELDS
+                })
+            }
+            validPets.push(pet)
+        }
     }
+
+    console.log('validpets: ' + JSON.stringify(validPets))
+
     const pet = PetDTO.getPetInputFrom({ name, specie, birthDate });
-    const result = await petsService.create(pet);
+    const result = (validPets.length > 0) ? await petsService.create(validPets) : await petsService.create(pet);
     res.send({ status: "success", payload: result })
 }
 

@@ -5,7 +5,6 @@ import CustomError from "../services/errors/customErrors.js";
 import errorDictionary from "../services/errors/errorsName.js";
 import logger from "../utils/logger.js";
 import { createUserErrorInfo } from "../services/errors/messages/errorMessages.js"
-import sessionsController from '../controllers/sessions.controller.js';
 
 const router = Router()
 
@@ -40,7 +39,6 @@ router.post('/generateData', async (req, res) => {
 
         console.log('valid users: ' + JSON.stringify(validUsers))
 
-        // await sessionsController.register(validUsers)
         await User.insertMany(validUsers)
 
         logger.info(`${usersCant} usuarios generados e insertados en la base de datos.`)

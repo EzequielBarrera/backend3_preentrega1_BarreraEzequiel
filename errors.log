@@ -19,3 +19,5 @@
 {"level":"error","timestamp":"2025-04-11T21:54:58.898Z"}
 {"body":"{\r\n    \"firstName\":\"Ezequiel\" ,\r\n    \"email\": \"pikitiamo@holi.com\",\r\n}","expose":true,"level":"error","status":400,"statusCode":400,"timestamp":"2025-04-11T23:11:38.001Z","type":"entity.parse.failed"}
 {"body":"{\r\n    \"firstName\":\"Ezequiel\" ,\r\n    \"lastName\":\"\",\r\n    \"email\": \"pikitiamo@holi.com\",\r\n    \"password\":\r\n}","expose":true,"level":"error","status":400,"statusCode":400,"timestamp":"2025-04-11T23:33:54.897Z","type":"entity.parse.failed"}
+{"level":"error","message":"Este es un mensaje error","timestamp":"2025-04-17T14:47:34.978Z"}
+{"level":"fatal","message":"Este es un mensaje fatal","timestamp":"2025-04-17T14:47:34.978Z"}
