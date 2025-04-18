@@ -1,0 +1,151 @@
+paths:
+  /api/pets/:
+    get:
+      summary: Obtiene los datos de todas las mascotas
+      tags:
+        - Pets
+      responses:
+        "200": 
+          description: Devuelve los datos de todas las mascotas
+        "500":
+          description: Error en el servidor, no pudo obtener ningún dato
+    post:
+      summary: Registra los datos de una mascota
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Pet'
+      responses:
+        "201":
+          description: Mascota registrada con éxito!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#components/schemas/Pet'
+        "500":
+          description: Error en el servidor, no se pudo registrar la mascota
+    put:
+      summary: Editar los datos de una mascota registrada en la base de datos
+      tags:
+        - Pets
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Id de la mascota que se quiere editar
+        schema:
+          $type: ObjectId
+      responses:
+        "200":
+          description: Mascota modificada con éxito!
+          content:
+            application/json:
+              schema:
+                type: array 
+                items:
+                  $ref: '#components/schemas/Pet'
+        "500":
+          description: Error en el servidor, no se pudo modificar la mascota
+    delete:
+      summary: Eliminar los datos de una mascota de la base de datos
+      tags:
+        - Pets
+      parameters:
+      - name: pid
+        in: path
+        required: true
+        description: Id de la mascota que se quiere borrar
+        schema:
+          $type: ObjectId
+      responses:
+        "200":
+          description: Mascota eliminada correctamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        "500": Error en el servidor, no se pudo eliminar la mascota
+  /api/pets/withimage/:
+    post:
+      summary: Registra los datos de una mascota con una imagen adicional
+      tags:
+        - Pets
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#components/schemas/Pet'
+      responses:
+        "201":
+          description: Mascota con imagen registrada correctamente
+        "400":
+          description: Valores incompletos
+        "500":
+          description: Error en el servidor, no se pudo registrar la mascota en la base de datos
+
+
+
+components:
+  schemas:
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        name:
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+        image:
+          type: String
+          description: Imagen de la mascota
+      example:
+        _id: ObjectId("680188ae156349239b84be28")
+        name: Sokoke
+        specie: gecko
+        birthDate: 2017-09-11T00:02:20.716+00:00
+        image: ./src/public/img/1671549990926-coderDog.jpg
+  requestBody:
+    petBody:
+    type: object
+    properties:
+      _id:
+        type: ObjectId
+        description: Id autogenerado de mongo
+      name:
+        type: String
+        description: Nombre de la mascota
+      specie:
+        type: String
+        description: Especie de la mascota
+      birthDate:
+        type: Date
+        description: Fecha de nacimiento de la mascota
+      image:
+        type: String
+        description: Imagen de la mascota
+      example:
+        _id: ObjectId("680188ae156349239b84be28")
+        name: Sokoke
+        specie: gecko
+        birthDate: 2017-09-11T00:02:20.716+00:00
+        image: ./src/public/img/1671549990926-coderDog.jpg

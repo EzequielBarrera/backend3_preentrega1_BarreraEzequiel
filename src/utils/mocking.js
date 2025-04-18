@@ -10,7 +10,8 @@ export const generateMockPets = (count = 100) => {
         birthDate: birthDate,
         age: Math.floor((actualDate - birthDate) / (1000 * 60 * 60 * 24 * 365)),
         owner: null,
-        adopted: false
+        adopted: false,
+        image: '.src/public/img/1671549990926-coderDog.jpg'
     }));
 };
 

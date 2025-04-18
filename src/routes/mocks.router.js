@@ -4,7 +4,9 @@ import User from '../dao/models/User.js'
 import CustomError from "../services/errors/customErrors.js";
 import errorDictionary from "../services/errors/errorsName.js";
 import logger from "../utils/logger.js";
-import { createUserErrorInfo } from "../services/errors/messages/errorMessages.js"
+import errorMessages from "../services/errors/messages/errorMessages.js";
+
+const eM = new errorMessages()
 
 const router = Router()
 
@@ -29,7 +31,7 @@ router.post('/generateData', async (req, res) => {
             if (!user['firstName'] || !user['lastName'] || !user.email || !user['password']) {
                 CustomError.createError({
                     name: "User creation error",
-                    cause: createUserErrorInfo(user),
+                    cause: eM.createUserErrorInfo(user),
                     message: "Error creating User - TEST",
                     code: errorDictionary.MISSING_FIELDS
                 })

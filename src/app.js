@@ -1,4 +1,6 @@
 import express from 'express';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import mongoose from 'mongoose';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -21,10 +23,41 @@ mongoose.connect(MONGO_URL)
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.urlencoded({ extended: true }))
 app.use((req, res, next) => {
     req.logger = logger;
     next();
 });
+
+const options = {
+    definition: {
+        openapi: "3.0.0",
+        info: {
+            title: "API Proyecto Adopt Me",
+            version: "1.0.0",
+            description: "Documentación para uso de Swagger"
+        },
+        servers: [
+            {
+                url: 'http://localhost:3000',
+                description: "Testing"
+            },
+            {
+                url: 'http://localhost:3001',
+                description: "Desarrollo"
+            },
+            {
+                url: 'http://localhost:8080',
+                description: "Producción"
+            },
+        ]
+    },
+    apis: ["./src/docs/*.yaml"]
+}
+
+const specs = swaggerJSDoc(options)
+
+app.use('/apidocs', swaggerUi.serve, swaggerUi.setup(specs))
 
 app.use('/api/users', usersRouter);
 app.use('/api/pets', petsRouter);

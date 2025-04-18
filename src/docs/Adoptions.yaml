@@ -1,0 +1,120 @@
+paths:
+  /api/adoptions/:
+    get:
+      summary: Obtener los datos de todas las adopciones
+      tags:
+        - Adoptions
+      responses:
+        "200":
+          description: Devuelve los datos de todas las adopciones
+        "500":
+          description: Error en el servidor, no se pudo obtener ningún dato
+  /api/adoptions/{aid}:
+    get:
+      summary: Obtener los datos de una sola adopción en base a su ID
+      tags:
+        - Adoptions
+      parameters:
+        - name: aid
+          in: path
+          required: true
+          description: ID de la adopción que se quiere buscar
+          schema:
+            $type: ObjectId
+      responses:
+        "404":
+          description: No existe una adopción con ese ID
+        "200":
+          description: Devuelve los datos de la adopción con ese ID
+        "500":
+          description: Error en el servidor, no pudo devolver ningún dato
+  /api/adoptions/{uid}/{pid}:
+    post:
+      summary: Registra los datos de una adopción
+      tags:
+        - Adoptions
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: ID del usuario que adoptó una mascota
+          schema:
+            $type: ObjectId
+        - name: pid
+          in: path
+          required: true
+          description: ID de la mascota que fue adoptada
+          schema:
+            $type: ObjectId
+      responses:
+        "404":
+          description: ID de Usuario o Mascota no encontrado
+        "400":
+          description: La mascota ya fue adoptada
+        "200":
+          description: La adopción fue exitosa!
+        "500":
+          description: Error en el servidor, la adopción no pudo realizarse
+
+
+
+components:
+  schemas:
+    Adoption:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        owner:
+          $ref: '#/components/schemas/User'
+        pet:
+          $ref: '#/components/schemas/Pet'
+      example:
+        _id: 68017f385cc442d799784efe
+        owner: 67fee883395b3aff4bc3586d
+        pet: 67feeec91e248ec80d648021
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        firstName:
+          type: String
+          description: Nombre del usuario
+        lastName:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: Email del usuario
+        password:
+          type: String
+          description: Contraseña del usuario
+      example:
+        _id: ObjectId("67fee883395b3aff4bc3586d")
+        firstName: Vance
+        lastName: Lueilwitz
+        email: Ilene58@hotmail.com
+        password: coder123
+    Pet:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        name:
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+      example:
+        _id: ObjectId("67feeec91e248ec80d648021")
+        name: Abyssinian
+        specie: rabbit
+        birthDate: 2015-01-25T16:55:17.462Z

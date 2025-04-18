@@ -1,0 +1,147 @@
+paths:
+  /api/sessions/register/:
+    post:
+      summary: Registra un usuario
+      tags:
+        - Sessions
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+      responses:
+        "201":
+          description: Usuario registrado con éxito!
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "400":
+          description: Este usuario ya existe
+        "500":
+          description: Error en el servidor, no se pudo registrar el usuario
+  /api/sessions/login/:
+    post:
+      summary: Inicia la sesión de un usuario
+      tags:
+        - Sessions
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Sesión iniciada de manera correcta!
+        "404":
+          description: El usuario no existe
+        "400":
+          description: Valor erróneo
+        "500":
+          description: Error interno del servidor, no se pudo iniciar sesión
+  /api/sessions/current/:
+    get:
+      summary: Devuelve los datos de la sesión actual
+      tags:
+        - Sessions
+
+      responses:
+        "200":
+          description: Muestra los datos de manera correcta
+        "500":
+          description: Error interno del servidor, no se pudo obtener los datos
+  /api/sessions/unprotectedLogin/:
+    get:
+      summary: Inicia la sesión de un usuario de manera insegura
+      tags:
+        - Sessions
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/User'
+      responses:
+        "200":
+          description: Sesión insegura iniciada de manera correcta!
+        "404":
+          description: El usuario no existe
+        "400":
+          description: Valor erróneo
+        "500":
+          description: Error interno del servidor, no se pudo iniciar sesión de manera insegura
+  /api/sessions/unprotectedCurrent/:
+    get:
+      summary: Devuelve los datos de la sesión insegura actual
+      tags:
+        - Sessions
+
+      responses:
+        "200":
+          description: Muestra los datos de manera correcta
+        "500":
+          description: Error interno del servidor, no se pudo obtener los datos
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        firstName:
+          type: String
+          description: Nombre del usuario
+        lastName:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: Email del usuario
+        password:
+          type: String
+          description: Contraseña del usuario
+      example:
+        _id: ObjectId("67fee883395b3aff4bc3586d")
+        firstName: Vance
+        lastName: Lueilwitz
+        email: Ilene58@hotmail.com
+        password: coder123
+  requestBody:
+    userBody:
+    type: object
+    properties:
+      _id:
+        type: ObjectId
+        description: Id autogenerado de mongo
+      firstName:
+        type: String
+        description: Nombre del usuario
+      lastName:
+        type: String
+        description: Apellido del usuario
+      email:
+        type: String
+        description: Email del usuario
+      password:
+        type: String
+        description: Contraseña del usuario
+    example:
+      _id: ObjectId("67fee883395b3aff4bc3586d")
+      firstName: Vance
+      lastName: Lueilwitz
+      email: Ilene58@hotmail.com
+      password: coder123

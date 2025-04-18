@@ -1,0 +1,134 @@
+paths:
+  /api/users/:
+    get:
+      summary: Obtiene los datos de todos los usuarios
+      tags:
+        - Users
+      responses: 
+        "200": 
+          description: Devuelve los datos de todos los usuarios
+        "500":
+          description: Error en el servidor, no pudo obtener ningún dato
+  /api/users/{uid}:
+    get:
+      summary: Obtiene los datos de un usuario en base a su ID cargado en la base de datos
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del usuario que se quiere buscar
+          schema:
+            $type: ObjectId
+      responses:
+        "200":
+          description: Devuelve el usuario de manera correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "500":
+          description: Error en el servidor, no se pudo obtener el usuario
+    put:
+      summary: Edita los datos de un usuario existente en la base de datos
+      tags:
+        -  Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del usuario que se quiere editar
+          schema:
+            $type: ObjectId
+      responses:
+        "404":
+          description: Usuario no encontrado
+        "200":
+          description: Usuario modificado con éxito
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "500":
+          description: Error en el servidor, no se pudo modificar el usuario
+    delete:
+      summary: Elimina los datos de un usuario existente en la base de datos
+      tags:
+        - Users
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          description: Id del usuario que se quiere borrar
+          schema:
+            $type: ObjectId
+      responses:
+        "200":
+          description: Usuario eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        "500":
+          description: Error en el servidor, no se pudo eliminar el usuario
+
+
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        firstName:
+          type: String
+          description: Nombre del usuario
+        lastName:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: Email del usuario
+        password:
+          type: String
+          description: Contraseña del usuario
+      example:
+        _id: ObjectId("67fee883395b3aff4bc3586d")
+        firstName: Vance
+        lastName: Lueilwitz
+        email: Ilene58@hotmail.com
+        password: coder123
+  requestBody:
+    userBody:
+    type: object
+    properties:
+      _id:
+        type: ObjectId
+        description: Id autogenerado de mongo
+      firstName:
+        type: String
+        description: Nombre del usuario
+      lastName:
+        type: String
+        description: Apellido del usuario
+      email:
+        type: String
+        description: Email del usuario
+      password:
+        type: String
+        description: Contraseña del usuario
+    example:
+      _id: ObjectId("67fee883395b3aff4bc3586d")
+      firstName: Vance
+      lastName: Lueilwitz
+      email: Ilene58@hotmail.com
+      password: coder123
