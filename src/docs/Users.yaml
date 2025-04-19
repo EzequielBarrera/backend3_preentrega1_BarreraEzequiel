@@ -86,9 +86,6 @@ components:
     User:
       type: object
       properties:
-        _id:
-          type: ObjectId
-          description: Id autogenerado de mongo
         firstName:
           type: String
           description: Nombre del usuario
@@ -102,33 +99,28 @@ components:
           type: String
           description: Contraseña del usuario
       example:
-        _id: ObjectId("67fee883395b3aff4bc3586d")
         firstName: Vance
         lastName: Lueilwitz
         email: Ilene58@hotmail.com
         password: coder123
   requestBody:
     userBody:
-    type: object
-    properties:
-      _id:
-        type: ObjectId
-        description: Id autogenerado de mongo
-      firstName:
-        type: String
-        description: Nombre del usuario
-      lastName:
-        type: String
-        description: Apellido del usuario
-      email:
-        type: String
-        description: Email del usuario
-      password:
-        type: String
-        description: Contraseña del usuario
-    example:
-      _id: ObjectId("67fee883395b3aff4bc3586d")
-      firstName: Vance
-      lastName: Lueilwitz
-      email: Ilene58@hotmail.com
-      password: coder123
+      type: object
+      properties:
+        firstName:
+          type: String
+          description: Nombre del usuario
+        lastName:
+          type: String
+          description: Apellido del usuario
+        email:
+          type: String
+          description: Email del usuario
+        password:
+          type: String
+          description: Contraseña del usuario
+      example:
+        firstName: Vance
+        lastName: Lueilwitz
+        email: Ilene58@hotmail.com
+        password: coder123

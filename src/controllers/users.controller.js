@@ -37,7 +37,9 @@ const deleteUser = async (req, res) => {
     try {
         const userId = req.params.uid;
         const result = await usersService.getUserById(userId);
-        res.status(200).send({ status: "success", message: "User deleted", deletedUser: result })
+        if (!result) return res.status(404).send({ status: "error", error: "User not found" })
+        const deletedUser = await usersService.delete(userId)
+        res.status(200).send({ status: "success", message: "User deleted", deletedUser: deletedUser })
     } catch (error) {
         res.status(500).send('Server error:' + error.message)
     }

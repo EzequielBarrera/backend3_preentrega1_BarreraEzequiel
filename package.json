@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon src/app.js",
     "dev": "nodemon src/app.js",
-    "test": "mocha test/supertest.test.js"
+    "test": "mocha ./test/**/*.test.js"
   },
   "keywords": [],
   "author": "",

@@ -26,22 +26,17 @@ const createPet = async (req, res) => {
         console.log('req.body: ' + JSON.stringify(req.body))
 
         if (Object.keys(req.body).length > 0) {
-            if (!name || !specie || !birthDate) {
-                CustomError.createError({
-                    name: "Pet creation error",
-                    cause: eM.createPetErrorInfo(req.body),
-                    message: "Error creating Pet - TEST",
-                    code: errorDictionary.MISSING_FIELDS
-                })
+            if (!name || !specie || !birthDate || name.trim() === "" || specie.trim() === "") {
+                return res.status(400).json({ error: "Todos los campos son obligatorios" })
             }
         } else {
-            console.log('generando epts')
+            console.log('generando pets')
             const generatePets = generateMockPets()
             console.log('generatedpets: ' + JSON.stringify(generatePets))
 
             for (let pet of generatePets) {
                 if (!pet['name'] || !pet['specie'] || !pet['birthDate']) {
-                    CustomError.createError({
+                    throw CustomError.createError({
                         name: "Pet creation error",
                         cause: eM.createPetErrorInfo(pet),
                         message: "Error creating Pet - TEST",
@@ -58,7 +53,7 @@ const createPet = async (req, res) => {
         const result = (validPets.length > 0) ? await petsService.create(validPets) : await petsService.create(pet);
         res.status(201).send({ status: "success", payload: result })
     } catch (error) {
-        res.status(500).send('Error registering user:' + error.message + error.cause)
+        res.status(500).send('Error registering pet:' + error.message + error.cause)
     }
 }
 
@@ -69,7 +64,7 @@ const updatePet = async (req, res) => {
         const result = await petsService.update(petId, petUpdateBody);
         res.status(200).send({ status: "success", message: "pet updated", updatedPet: result })
     } catch (error) {
-        res.status(500).send('Error logging user in:' + error.message)
+        res.status(500).send('Error updating pet:' + error.message)
     }
 }
 
@@ -77,9 +72,10 @@ const deletePet = async (req, res) => {
     try {
         const petId = req.params.pid;
         const result = await petsService.delete(petId);
+        if (!result) return res.status(404).send({ status: "error", error: "Pet not found" });
         res.status(200).send({ status: "success", message: "pet deleted", deletedPet: result });
     } catch (error) {
-        res.status(500).send('Error logging user in:' + error.message)
+        res.status(500).send('Error deleting pet:' + error.message)
     }
 }
 
@@ -88,18 +84,17 @@ const createPetWithImage = async (req, res) => {
         const file = req.file;
         const { name, specie, birthDate } = req.body;
         if (!name || !specie || !birthDate) return res.status(400).send({ status: "error", error: "Incomplete values" })
-        console.log(file);
         const pet = PetDTO.getPetInputFrom({
             name,
             specie,
             birthDate,
             image: `${__dirname}/../public/img/${file.filename}`
         });
-        console.log(pet);
+        if (!pet) return res.status(404).send({ status: "error", error: "Pet not found" });
         const result = await petsService.create(pet);
         res.status(201).send({ status: "success", payload: result })
     } catch (error) {
-        res.status(500).send('Error logging user in:' + error.message)
+        res.status(500).send('Error creating pet with image:' + error.message)
     }
 }
 export default {

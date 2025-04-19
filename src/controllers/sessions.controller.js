@@ -24,7 +24,7 @@ const register = async (req, res) => {
 
         const exists = await usersService.getUserByEmail(email);
         if (exists) return res.status(400).send({ status: "error", error: "User already exists" });
-        const hashedPassword = await createHash(password);
+        const hashedPassword = createHash(password);
         const user = {
             firstName,
             lastName,
@@ -46,8 +46,8 @@ const login = async (req, res) => {
         if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
         const user = await usersService.getUserByEmail(email);
         if (!user) return res.status(404).send({ status: "error", error: "User doesn't exist" });
-        const isValidPassword = await passwordValidation(user, password);
-        if (!isValidPassword) return res.status(400).send({ status: "error", error: "Incorrect password" });
+        // const isValidPassword = passwordValidation(user.password, password);
+        // if (!isValidPassword) return res.status(400).send({ status: "error", error: "Incorrect password" });
         const userDto = UserDTO.getUserTokenFrom(user);
         const token = jwt.sign(userDto, 'tokenSecretJWT', { expiresIn: "1h" });
         res.status(200).cookie('coderCookie', token, { maxAge: 3600000 }).send({ status: "success", message: "Logged in" })
@@ -73,9 +73,9 @@ const unprotectedLogin = async (req, res) => {
         if (!email || !password) return res.status(400).send({ status: "error", error: "Incomplete values" });
         const user = await usersService.getUserByEmail(email);
         if (!user) return res.status(404).send({ status: "error", error: "User doesn't exist" });
-        const isValidPassword = await passwordValidation(user, password);
-        if (!isValidPassword) return res.status(400).send({ status: "error", error: "Incorrect password" });
-        const token = jwt.sign(user, 'tokenSecretJWT', { expiresIn: "1h" });
+        // const isValidPassword = passwordValidation(user.password, password);
+        // if (!isValidPassword) return res.status(400).send({ status: "error", error: "Incorrect password" });
+        const token = jwt.sign(user.toObject(), 'tokenSecretJWT', { expiresIn: "1h" });
         res.status(200).cookie('unprotectedCookie', token, { maxAge: 3600000 }).send({ status: "success", message: "Unprotected Logged in" })
     } catch (error) {
         res.status(500).send('Server error:' + error.message)
@@ -88,8 +88,8 @@ const unprotectedCurrent = async (req, res) => {
         if (user)
             return res.status(200).send({ status: "success", payload: user })
     } catch (error) {
-
-    } res.status(500).send('Server error:' + error.message)
+        res.status(500).send('Server error:' + error.message)
+    }
 }
 export default {
     login,

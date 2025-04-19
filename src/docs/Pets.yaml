@@ -18,9 +18,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Pet'
+                $ref: '#/components/requestBody/petBody'
       responses:
         "201":
           description: Mascota registrada con éxito!
@@ -85,7 +83,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
+              type: object
               items:
                 $ref: '#components/schemas/Pet'
       responses:
@@ -126,23 +124,23 @@ components:
         image: ./src/public/img/1671549990926-coderDog.jpg
   requestBody:
     petBody:
-    type: object
-    properties:
-      _id:
-        type: ObjectId
-        description: Id autogenerado de mongo
-      name:
-        type: String
-        description: Nombre de la mascota
-      specie:
-        type: String
-        description: Especie de la mascota
-      birthDate:
-        type: Date
-        description: Fecha de nacimiento de la mascota
-      image:
-        type: String
-        description: Imagen de la mascota
+      type: object
+      properties:
+        _id:
+          type: ObjectId
+          description: Id autogenerado de mongo
+        name:
+          type: String
+          description: Nombre de la mascota
+        specie:
+          type: String
+          description: Especie de la mascota
+        birthDate:
+          type: Date
+          description: Fecha de nacimiento de la mascota
+        image:
+          type: String
+          description: Imagen de la mascota
       example:
         _id: ObjectId("680188ae156349239b84be28")
         name: Sokoke

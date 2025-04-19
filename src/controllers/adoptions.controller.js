@@ -5,7 +5,7 @@ const getAllAdoptions = async (req, res) => {
         const result = await adoptionsService.getAll();
         res.status(200).send({ status: "success", payload: result })
     } catch (error) {
-        res.status(500).send('Error logging user in:' + error.message)
+        res.status(500).send('Error obtaining all adoptions:' + error.message)
     }
 }
 
@@ -16,7 +16,7 @@ const getAdoption = async (req, res) => {
         if (!adoption) return res.status(404).send({ status: "error", error: "Adoption not found" })
         res.status(200).send({ status: "success", payload: adoption })
     } catch (error) {
-        res.status(500).send('Error logging user in:' + error.message)
+        res.status(500).send('Error obtaining adoption:' + error.message)
     }
 }
 
@@ -32,9 +32,9 @@ const createAdoption = async (req, res) => {
         await usersService.update(user._id, { pets: user.pets })
         await petsService.update(pet._id, { adopted: true, owner: user._id })
         await adoptionsService.create({ owner: user._id, pet: pet._id })
-        res.status(200).send({ status: "success", message: "Pet adopted" })
+        res.status(201).send({ status: "success", message: "Pet adopted" })
     } catch (error) {
-        res.status(500).send('Error logging user in:' + error.message)
+        res.status(500).send('Error creating adoption:' + error.message)
     }
 }
 

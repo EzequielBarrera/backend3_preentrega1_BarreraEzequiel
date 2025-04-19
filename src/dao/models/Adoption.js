@@ -4,16 +4,19 @@ import mongoose from "mongoose";
 const collection = "Adoptions";
 
 const schema = new mongoose.Schema({
-    owner:{
-        type:mongoose.SchemaTypes.ObjectId,
-        ref:'Users'
+    owner: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Users'
     },
-    pet:{
-        type:mongoose.SchemaTypes.ObjectId,
-        ref:'Pets'
+    pet: {
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: 'Pets'
+    },
+    mock: {
+        type: String
     }
 })
 
-const adoptionModel = mongoose.model(collection,schema);
+const adoptionModel = mongoose.model(collection, schema);
 
 export default adoptionModel;
