@@ -23,16 +23,13 @@ const createPet = async (req, res) => {
         const { name, specie, birthDate } = req.body;
         const validPets = []
 
-        console.log('req.body: ' + JSON.stringify(req.body))
 
         if (Object.keys(req.body).length > 0) {
             if (!name || !specie || !birthDate || name.trim() === "" || specie.trim() === "") {
                 return res.status(400).json({ error: "Todos los campos son obligatorios" })
             }
         } else {
-            console.log('generando pets')
             const generatePets = generateMockPets()
-            console.log('generatedpets: ' + JSON.stringify(generatePets))
 
             for (let pet of generatePets) {
                 if (!pet['name'] || !pet['specie'] || !pet['birthDate']) {
@@ -47,7 +44,6 @@ const createPet = async (req, res) => {
             }
         }
 
-        console.log('validpets: ' + JSON.stringify(validPets))
 
         const pet = PetDTO.getPetInputFrom({ name, specie, birthDate });
         const result = (validPets.length > 0) ? await petsService.create(validPets) : await petsService.create(pet);

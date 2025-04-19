@@ -24,7 +24,6 @@ router.post('/generateData', async (req, res) => {
     const { usersCant } = req.body;
     try {
         const generatedUsers = generateMockUsers(usersCant)
-        console.log('generated users: ' + JSON.stringify(generatedUsers))
         const validUsers = []
 
         for (let user of generatedUsers) {
@@ -38,8 +37,6 @@ router.post('/generateData', async (req, res) => {
             }
             validUsers.push(user)
         }
-
-        console.log('valid users: ' + JSON.stringify(validUsers))
 
         await User.insertMany(validUsers)
 

@@ -9,11 +9,8 @@ import errorMessages from "../services/errors/messages/errorMessages.js";
 const eM = new errorMessages()
 const register = async (req, res) => {
     try {
-        console.log("intentando registrar usuario")
         const { firstName, lastName, email, password } = req.body;
-        console.log(req.body)
         if (!firstName || !lastName || !email || !password) {
-            console.log("validando campos")
             CustomError.createError({
                 name: "User creation error",
                 cause: eM.createUserErrorInfo(req.body),
@@ -31,9 +28,7 @@ const register = async (req, res) => {
             email,
             password: hashedPassword
         }
-        console.log(user)
         let result = await usersService.create(user);
-        console.log(result);
         res.status(201).send({ status: "success", payload: result._id });
     } catch (error) {
         res.status(500).send('Error registering user:' + error.message + error.cause)

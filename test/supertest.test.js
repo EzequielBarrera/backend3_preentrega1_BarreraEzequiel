@@ -171,6 +171,9 @@ describe("Pruebas sobre el router /api/pets/", function () {
     })
     it("El método POST en /api/pets/withimage permite registrar una mascota con imagen y retorna código 201", async () => {
         const result = await requester.post("/api/pets/withimage").field("name", "con imagen").field("specie", "imagen").field("birthDate", "2020-01-01").attach("image", imagePath)
+        after(async () => {
+            await mongoose.connection.collection("pets").deleteMany({ specie: /imagen/ })
+        })
         expect(result.statusCode).to.be.eq(201)
         expect(result.body.payload.specie).to.be.eq("imagen")
     })

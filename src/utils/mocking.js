@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
 
 export const generateMockPets = (count = 100) => {
-    console.log('generando pets')
     let actualDate = new Date()
     let birthDate = faker.date.past({ years: 15 })
     return Array.from({ length: count }, () => ({

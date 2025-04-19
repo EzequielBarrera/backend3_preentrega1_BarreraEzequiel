@@ -66,8 +66,7 @@ app.use('/api/sessions', sessionsRouter);
 app.use('/api/mocks', mockRouter);
 app.use('/api/loggerTest', loggerRouter);
 
-app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-console.log(process.env.NODE_ENV)
+app.listen(PORT)
 
 
 app.use(errorHandler);
