@@ -33,7 +33,7 @@ const options = {
     definition: {
         openapi: "3.0.0",
         info: {
-            title: "API Proyecto Adopt Me",
+            title: "API Proyecto Adopt Me (Ezequiel Barrera)",
             version: "1.0.0",
             description: "Documentación para uso de Swagger"
         },
